@@ -16,7 +16,7 @@ def main():
     total_matches = 0
 
     for school in schools:
-        print(f"🏫 {school['name']}")
+        print(f"[SCHOOL] {school['name']}")
 
         for url in school["urls"]:
             print(f"   Checking: {url}")
@@ -24,29 +24,28 @@ def main():
             text = fetch_page(url)
 
             if not text:
-                print("   ✗ Failed")
+                print("   FAILED")
                 continue
 
-            print(f"   ✓ Page downloaded ({len(text)} characters)")
+            print(f"   OK - Page downloaded ({len(text)} characters)")
 
-            # Detect our configured keywords
             matches = detect_keywords(text)
 
             if matches:
-                print("   🚨 EVENT FOUND!")
+                print("   EVENT FOUND!")
 
                 for match in matches:
-                    print(f"      → {match}")
+                    print(f"      -> {match}")
 
                 total_matches += len(matches)
 
             else:
                 print("   No relevant event found.")
 
-            # Special debugging for Campus Hannah Höch
-            if "campus-hannah-hoech" in school["id"]:
+            # Debugging for Campus Hannah Höch
+            if school["id"] == "campus-hannah-hoech":
                 print()
-                print("   🔎 DEBUG: Checking known event words...")
+                print("   DEBUG - Checking known event words:")
 
                 test_words = [
                     "Informationsveranstaltungen",
@@ -57,9 +56,9 @@ def main():
 
                 for word in test_words:
                     if word.lower() in text.lower():
-                        print(f"      ✅ FOUND: {word}")
+                        print(f"      FOUND: {word}")
                     else:
-                        print(f"      ❌ NOT FOUND: {word}")
+                        print(f"      NOT FOUND: {word}")
 
         print()
 
