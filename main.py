@@ -1,3 +1,4 @@
+
 from monitor.config import load_schools
 from monitor.scraper import fetch_page
 from monitor.detector import detect_keywords
@@ -13,7 +14,7 @@ def main():
     print(f"Schools loaded: {len(schools)}")
     print()
 
-    total_matches = 0
+    total_events = 0
 
     for school in schools:
         print(f"[SCHOOL] {school['name']}")
@@ -29,20 +30,20 @@ def main():
 
             print(f"   OK - Page downloaded ({len(text)} characters)")
 
-            matches = detect_keywords(text)
+            events = detect_keywords(text)
 
-            if matches:
+            if events:
                 print("   EVENT FOUND!")
 
-                for match in matches:
-                    print(f"      -> {match}")
+                for event in events:
+                    print(f"      -> {event}")
 
-                total_matches += len(matches)
+                total_events += len(events)
 
             else:
                 print("   No relevant event found.")
 
-            # Debugging for Campus Hannah Höch
+            # Debugging for Campus Hannah Höch
             if school["id"] == "campus-hannah-hoech":
                 print()
                 print("   DEBUG - Checking known event words:")
@@ -63,9 +64,10 @@ def main():
         print()
 
     print("=" * 60)
-    print(f"Total keyword matches: {total_matches}")
+    print(f"Total event categories found: {total_events}")
     print("=" * 60)
 
 
 if __name__ == "__main__":
     main()
+
