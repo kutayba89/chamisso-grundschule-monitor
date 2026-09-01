@@ -29,6 +29,7 @@ def main():
 
             print(f"   ✓ Page downloaded ({len(text)} characters)")
 
+            # Detect our configured keywords
             matches = detect_keywords(text)
 
             if matches:
@@ -41,6 +42,24 @@ def main():
 
             else:
                 print("   No relevant event found.")
+
+            # Special debugging for Campus Hannah Höch
+            if "campus-hannah-hoech" in school["id"]:
+                print()
+                print("   🔎 DEBUG: Checking known event words...")
+
+                test_words = [
+                    "Informationsveranstaltungen",
+                    "Schulführungen",
+                    "Informationsveranstaltung",
+                    "Schulführung",
+                ]
+
+                for word in test_words:
+                    if word.lower() in text.lower():
+                        print(f"      ✅ FOUND: {word}")
+                    else:
+                        print(f"      ❌ NOT FOUND: {word}")
 
         print()
 
