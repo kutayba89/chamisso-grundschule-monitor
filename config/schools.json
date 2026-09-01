@@ -1,0 +1,33 @@
+{
+  "schools": [
+    {
+      "id": "chamisso-grundschule",
+      "name": "Chamisso-Grundschule",
+      "urls": [
+        "https://www.chamisso-grundschule.com/für-eltern",
+        "https://www.chamisso-grundschule.com/"
+      ]
+    },
+    {
+      "id": "campus-hannah-hoech",
+      "name": "Campus Hannah Höch",
+      "urls": [
+        "http://www.campus-hannah-hoech.de/"
+      ]
+    },
+    {
+      "id": "bettina-von-arnim-schule",
+      "name": "Bettina-von-Arnim-Schule",
+      "urls": [
+        "https://www.bettina-schule.de/"
+      ]
+    },
+    {
+      "id": "lauterbach-schulen",
+      "name": "Lauterbach-Schulen",
+      "urls": [
+        "https://www.lauterbach-schule.de/"
+      ]
+    }
+  ]
+}
