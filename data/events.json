@@ -1,0 +1,20 @@
+{
+  "last_checked": "2026-09-01T20:30:00",
+  "schools": [
+    {
+      "name": "Campus Hannah Höch",
+      "events": [
+        {
+          "title": "Informationsveranstaltungen und Schulführungen für das Schuljahr 2027/28",
+          "date": "2026-09-10",
+          "time": "17:00-18:00",
+          "type": [
+            "Schulführung",
+            "Informationsveranstaltung"
+          ],
+          "url": "..."
+        }
+      ]
+    }
+  ]
+}
