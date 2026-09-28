@@ -20,9 +20,15 @@ const schools = [
     status: "Online",
     events: 1,
   },
-  {
+    {
     name: "Lauterbach-Schulen",
     location: "Berlin",
+    status: "Online",
+    events: 0,
+  },
+  {
+    name: "Peckwisch-Grundschule",
+    location: "Berlin-Reinickendorf",
     status: "Online",
     events: 0,
   },
@@ -85,7 +91,7 @@ function App() {
             <div className="brand-icon">🏫</div>
 
             <div>
-              <h1>School Event Monitor</h1>
+              <h1>School Open Day in Reinickendorf</h1>
               <p>Schulveranstaltungen in Berlin</p>
             </div>
           </div>

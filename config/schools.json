@@ -22,11 +22,18 @@
         "https://www.bettina-schule.de/"
       ]
     },
-    {
+        {
       "id": "lauterbach-schulen",
       "name": "Lauterbach-Schulen",
       "urls": [
         "https://www.lauterbach-schule.de/"
+      ]
+    },
+    {
+      "id": "peckwisch-grundschule",
+      "name": "Peckwisch-Grundschule",
+      "urls": [
+        "https://www.peckwisch.de/"
       ]
     }
   ]
