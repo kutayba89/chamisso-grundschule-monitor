@@ -311,7 +311,13 @@ function App() {
                     </div>
                   </div>
 
-                  <button className="details-button">Details →</button>
+                  <button
+                    className="details-button"
+                    onClick={() => event.url && window.open(event.url, "_blank", "noopener,noreferrer")}
+                    disabled={!event.url}
+                  >
+                    Details →
+                  </button>
                 </article>
               ))
             )}
