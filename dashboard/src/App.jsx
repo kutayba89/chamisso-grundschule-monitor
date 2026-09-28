@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
+// Reinickendorf coat of arms — used as school icon
+const WAPPEN_URL =
+  "https://upload.wikimedia.org/wikipedia/commons/8/8c/Wappen_Berlin-Reinickendorf.svg";
+
 // Known locations per school (the scraped JSON doesn't store this).
 const LOCATIONS = {
   "Chamisso-Grundschule": "Berlin-Reinickendorf",
@@ -119,7 +123,9 @@ function App() {
       <header className="header">
         <div className="header-inner">
           <div className="brand">
-            <div className="brand-icon">🏫</div>
+            <div className="brand-icon">
+              <img src={WAPPEN_URL} alt="Reinickendorf" style={{width:"22px",height:"22px",objectFit:"contain"}} />
+            </div>
 
             <div>
               <h1>School Open Day in Reinickendorf</h1>
@@ -173,7 +179,9 @@ function App() {
 
         <section className="stats">
           <div className="stat-card">
-            <div className="stat-icon">🏫</div>
+            <div className="stat-icon">
+              <img src={WAPPEN_URL} alt="Schulen" style={{width:"26px",height:"26px",objectFit:"contain"}} />
+            </div>
             <div>
               <span>Schulen</span>
               <strong>{schools.length}</strong>
@@ -215,7 +223,9 @@ function App() {
             {schools.map((school) => (
               <div className="school-card" key={school.name}>
                 <div className="school-card-top">
-                  <div className="school-icon">🏫</div>
+                  <div className="school-icon">
+                    <img src={WAPPEN_URL} alt="Wappen" style={{width:"36px",height:"36px",objectFit:"contain"}} />
+                  </div>
 
                   <span className="online-badge">
                     <span></span>
