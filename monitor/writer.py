@@ -22,6 +22,16 @@ def _write_json(path, payload):
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
 
+def _try_write_json(path, payload):
+    """Write JSON but don't crash if the file is locked (e.g. on Windows)."""
+    try:
+        _write_json(path, payload)
+        print(f"   Saved: {path}")
+    except PermissionError as e:
+        print(f"   Warning: could not write {path} ({e})")
+        print(f"   (This is OK on Windows — GitHub Actions will handle it.)")
+
+
 def save_results(results):
     """
     results: list of dicts shaped like
@@ -46,7 +56,7 @@ def save_results(results):
         "schools": results,
     }
 
-    _write_json(DATA_FILE, payload)
-    _write_json(PUBLIC_FILE, payload)
+    _try_write_json(DATA_FILE, payload)
+    _try_write_json(PUBLIC_FILE, payload)
 
     return payload

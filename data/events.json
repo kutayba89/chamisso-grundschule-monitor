@@ -1,10 +1,57 @@
 {
-  "last_checked": null,
+  "last_checked": "2026-09-28T21:00:00",
   "schools": [
-    { "name": "Chamisso-Grundschule",       "status": "Online", "events": [] },
-    { "name": "Campus Hannah H\u00f6ch",      "status": "Online", "events": [] },
-    { "name": "Bettina-von-Arnim-Schule",    "status": "Online", "events": [] },
-    { "name": "Lauterbach-Schulen",          "status": "Online", "events": [] },
-    { "name": "Peckwisch-Grundschule",       "status": "Online", "events": [] }
+    {
+      "name": "Chamisso-Grundschule",
+      "status": "Online",
+      "events": []
+    },
+    {
+      "name": "Campus Hannah H\u00f6ch",
+      "status": "Online",
+      "events": [
+        {
+          "title": "Schulf\u00fchrungen und Informationsveranstaltungen",
+          "date": "Noch nicht erkannt",
+          "time": "",
+          "type": ["Schulf\u00fchrung", "Informationsveranstaltung"],
+          "url": "http://www.campus-hannah-hoech.de/",
+          "new": true
+        }
+      ]
+    },
+    {
+      "name": "Bettina-von-Arnim-Schule",
+      "status": "Online",
+      "events": [
+        {
+          "title": "Tag der offenen T\u00fcr",
+          "date": "29.09.2026",
+          "time": "10:15-12:00",
+          "type": ["Tag der offenen T\u00fcr"],
+          "url": "https://www.bettina-schule.de/",
+          "new": true
+        }
+      ]
+    },
+    {
+      "name": "Lauterbach-Schulen",
+      "status": "Online",
+      "events": []
+    },
+    {
+      "name": "Peckwisch-Grundschule",
+      "status": "Online",
+      "events": [
+        {
+          "title": "Tag der offenen T\u00fcr f\u00fcr Erstkl\u00e4ssler 2027",
+          "date": "29.09.2026",
+          "time": "10:15-12:00",
+          "type": ["Tag der offenen T\u00fcr"],
+          "url": "https://www.peckwisch.de/",
+          "new": true
+        }
+      ]
+    }
   ]
 }
