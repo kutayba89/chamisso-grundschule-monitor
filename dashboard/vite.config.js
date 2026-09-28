@@ -3,5 +3,5 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/chamisso-grundschule-monitor/",
+  base: "/school-open-day-reinickendorf/",
 });
