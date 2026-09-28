@@ -136,32 +136,37 @@ function App() {
         </div>
       </header>
 
+      <nav className="breadcrumb">
+        <div className="breadcrumb-inner">
+          Startseite › Schulmonitoring › <span>Berlin-Reinickendorf</span>
+        </div>
+      </nav>
+
       <main className="container">
-        <section className="hero">
-          <div>
-            <p className="eyebrow">SCHULMONITORING</p>
-
-            <h2>
-              Wichtige Schultermine
-              <br />
-              automatisch entdecken.
-            </h2>
-
-            <p className="hero-text">
-              Der Monitor überprüft die Webseiten ausgewählter Schulen und
-              erkennt neue Veranstaltungen und wichtige Termine.
-            </p>
-          </div>
-
-                    <div className="last-check">
-            <span className="status-dot"></span>
-            <div>
-              <strong>{loadError ? "Keine Daten" : "System online"}</strong>
-              <small>
-                {loadError
-                  ? "events.json nicht gefunden"
-                  : `Zuletzt geprüft: ${formatLastChecked(data.lastChecked)}`}
-              </small>
+                <section className="hero">
+          <div className="hero-inner">
+            <div className="hero-text-block">
+              <p className="eyebrow">Schulmonitoring Berlin</p>
+              <h2>
+                Tage der offenen Tür
+                <br />
+                in Reinickendorf
+              </h2>
+              <p className="hero-text">
+                Automatische Überwachung der Schulwebseiten — neue Termine
+                und Veranstaltungen werden täglich erkannt und hier angezeigt.
+              </p>
+            </div>
+            <div className="last-check">
+              <span className="status-dot"></span>
+              <div>
+                <strong>{loadError ? "Keine Daten" : "System aktiv"}</strong>
+                <small>
+                  {loadError
+                    ? "Daten nicht verfügbar"
+                    : `Zuletzt geprüft: ${formatLastChecked(data.lastChecked)}`}
+                </small>
+              </div>
             </div>
           </div>
         </section>
@@ -201,11 +206,9 @@ function App() {
         </section>
 
         <section className="section">
-          <div className="section-title">
-            <div>
-              <h2>Überwachte Schulen</h2>
-              <p>Aktueller Status der überwachten Webseiten</p>
-            </div>
+                    <div className="section-title">
+            <h2>🏫 Überwachte Schulen</h2>
+            <p>Aktueller Status der überwachten Webseiten</p>
           </div>
 
           <div className="school-grid">
@@ -233,11 +236,9 @@ function App() {
         </section>
 
         <section className="section">
-          <div className="section-title">
-            <div>
-              <h2>Veranstaltungen</h2>
-              <p>Erkannte Schulveranstaltungen und Termine</p>
-            </div>
+                    <div className="section-title">
+            <h2>📅 Erkannte Veranstaltungen</h2>
+            <p>Gefundene Termine und Schulveranstaltungen</p>
           </div>
 
           <div className="filters">
