@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
-// Reinickendorf coat of arms — used as school icon
-const WAPPEN_URL =
-  "https://upload.wikimedia.org/wikipedia/commons/8/8c/Wappen_Berlin-Reinickendorf.svg";
+// Reinickendorf coat of arms — local file in public/
+const WAPPEN_URL = `${import.meta.env.BASE_URL}wappen.svg`;
 
 // Known locations per school (the scraped JSON doesn't store this).
 const LOCATIONS = {
