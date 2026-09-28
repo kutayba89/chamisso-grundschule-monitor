@@ -2,22 +2,27 @@
 from monitor.config import load_schools
 from monitor.scraper import fetch_page
 from monitor.detector import detect_keywords
+from monitor.writer import save_results
 
 
 def main():
     schools = load_schools()
 
     print("=" * 60)
-    print("CHAMISSO SCHOOL MONITOR")
+    print("SCHOOL OPEN DAY MONITOR")
     print("=" * 60)
 
     print(f"Schools loaded: {len(schools)}")
     print()
 
+    results = []
     total_events = 0
 
     for school in schools:
         print(f"[SCHOOL] {school['name']}")
+
+        school_status = "Offline"
+        school_events = []
 
         for url in school["urls"]:
             print(f"   Checking: {url}")
@@ -28,43 +33,51 @@ def main():
                 print("   FAILED")
                 continue
 
+            # At least one URL responded successfully.
+            school_status = "Online"
+
             print(f"   OK - Page downloaded ({len(text)} characters)")
 
-            events = detect_keywords(text)
+            categories = detect_keywords(text)
 
-            if events:
+            if categories:
                 print("   EVENT FOUND!")
 
-                for event in events:
-                    print(f"      -> {event}")
+                for category in categories:
+                    print(f"      -> {category}")
 
-                total_events += len(events)
+                # Group the detected categories into one event entry per URL.
+                # Exact date/time parsing is not implemented yet.
+                school_events.append(
+                    {
+                        "title": "Erkannte Veranstaltung",
+                        "date": "Noch nicht erkannt",
+                        "time": "",
+                        "type": categories,
+                        "url": url,
+                    }
+                )
+
+                total_events += len(categories)
 
             else:
                 print("   No relevant event found.")
 
-            # Debugging for Campus Hannah Höch
-            if school["id"] == "campus-hannah-hoech":
-                print()
-                print("   DEBUG - Checking known event words:")
-
-                test_words = [
-                    "Informationsveranstaltungen",
-                    "Schulführungen",
-                    "Informationsveranstaltung",
-                    "Schulführung",
-                ]
-
-                for word in test_words:
-                    if word.lower() in text.lower():
-                        print(f"      FOUND: {word}")
-                    else:
-                        print(f"      NOT FOUND: {word}")
+        results.append(
+            {
+                "name": school["name"],
+                "status": school_status,
+                "events": school_events,
+            }
+        )
 
         print()
 
+    payload = save_results(results)
+
     print("=" * 60)
     print(f"Total event categories found: {total_events}")
+    print(f"Results saved. Last checked: {payload['last_checked']}")
     print("=" * 60)
 
 

@@ -1,9 +1,15 @@
 name: Deploy Dashboard
 
 on:
+  # Redeploy whenever code is pushed to main.
   push:
     branches:
       - main
+
+  # Also redeploy automatically after the scraper updates events.json.
+  workflow_run:
+    workflows: ["Scrape Schools"]
+    types: [completed]
 
 permissions:
   contents: read

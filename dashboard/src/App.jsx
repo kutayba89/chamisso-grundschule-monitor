@@ -1,67 +1,57 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
-const schools = [
-  {
-    name: "Chamisso-Grundschule",
-    location: "Berlin-Reinickendorf",
-    status: "Online",
-    events: 0,
-  },
-  {
-    name: "Campus Hannah Höch",
-    location: "Berlin-Reinickendorf",
-    status: "Online",
-    events: 2,
-  },
-  {
-    name: "Bettina-von-Arnim-Schule",
-    location: "Berlin-Reinickendorf",
-    status: "Online",
-    events: 1,
-  },
-    {
-    name: "Lauterbach-Schulen",
-    location: "Berlin",
-    status: "Online",
-    events: 0,
-  },
-  {
-    name: "Peckwisch-Grundschule",
-    location: "Berlin-Reinickendorf",
-    status: "Online",
-    events: 0,
-  },
-];
+// Known locations per school (the scraped JSON doesn't store this).
+const LOCATIONS = {
+  "Chamisso-Grundschule": "Berlin-Reinickendorf",
+  "Campus Hannah Höch": "Berlin-Reinickendorf",
+  "Bettina-von-Arnim-Schule": "Berlin-Reinickendorf",
+  "Lauterbach-Schulen": "Berlin",
+  "Peckwisch-Grundschule": "Berlin-Reinickendorf",
+};
 
-const events = [
-  {
-    school: "Campus Hannah Höch",
-    title:
-      "Informationsveranstaltungen und Schulführungen für das Schuljahr 2027/28",
-    date: "10.09.2026",
-    time: "17:00–18:00",
-    type: ["Schulführung", "Informationsveranstaltung"],
-    new: true,
-  },
-  {
-    school: "Campus Hannah Höch",
-    title:
-      "Informationsveranstaltungen und Schulführungen für das Schuljahr 2027/28",
-    date: "11.09.2026",
-    time: "09:00–10:00",
-    type: ["Schulführung", "Informationsveranstaltung"],
-    new: true,
-  },
-  {
-    school: "Bettina-von-Arnim-Schule",
-    title: "Tag der offenen Tür",
-    date: "Noch nicht erkannt",
-    time: "",
-    type: ["Tag der offenen Tür"],
-    new: false,
-  },
-];
+// The dashboard is deployed under a base path on GitHub Pages,
+// so we build the events.json URL relative to that base.
+const DATA_URL = `${import.meta.env.BASE_URL}events.json`;
+
+function formatLastChecked(iso) {
+  if (!iso) return "unbekannt";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleString("de-DE", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+// Transform the scraped payload into the shapes the UI needs.
+function transform(payload) {
+  const rawSchools = payload?.schools ?? [];
+
+  const schools = rawSchools.map((s) => ({
+    name: s.name,
+    location: LOCATIONS[s.name] ?? "Berlin",
+    status: s.status ?? "Online",
+    events: (s.events ?? []).length,
+  }));
+
+  const events = rawSchools.flatMap((s) =>
+    (s.events ?? []).map((e) => ({
+      school: s.name,
+      title: e.title,
+      date: e.date,
+      time: e.time ?? "",
+      type: e.type ?? [],
+      url: e.url ?? "",
+      new: Boolean(e.new),
+    })),
+  );
+
+  return { schools, events, lastChecked: payload?.last_checked ?? null };
+}
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -69,19 +59,60 @@ function App() {
   const [schoolFilter, setSchoolFilter] = useState("Alle Schulen");
   const [typeFilter, setTypeFilter] = useState("Alle Arten");
 
-  const filteredEvents = events.filter((event) => {
-    const matchesSearch =
-      event.title.toLowerCase().includes(search.toLowerCase()) ||
-      event.school.toLowerCase().includes(search.toLowerCase());
-
-    const matchesSchool =
-      schoolFilter === "Alle Schulen" || event.school === schoolFilter;
-
-    const matchesType =
-      typeFilter === "Alle Arten" || event.type.includes(typeFilter);
-
-    return matchesSearch && matchesSchool && matchesType;
+  const [data, setData] = useState({
+    schools: [],
+    events: [],
+    lastChecked: null,
   });
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+
+    fetch(DATA_URL, { cache: "no-store" })
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((payload) => {
+        if (!active) return;
+        setData(transform(payload));
+        setLoading(false);
+      })
+      .catch(() => {
+        if (!active) return;
+        setLoadError(true);
+        setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const schools = data.schools;
+  const events = data.events;
+
+
+    const filteredEvents = useMemo(
+    () =>
+      events.filter((event) => {
+        const title = event.title ?? "";
+        const matchesSearch =
+          title.toLowerCase().includes(search.toLowerCase()) ||
+          event.school.toLowerCase().includes(search.toLowerCase());
+
+        const matchesSchool =
+          schoolFilter === "Alle Schulen" || event.school === schoolFilter;
+
+        const matchesType =
+          typeFilter === "Alle Arten" || event.type.includes(typeFilter);
+
+        return matchesSearch && matchesSchool && matchesType;
+      }),
+    [events, search, schoolFilter, typeFilter],
+  );
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
@@ -122,11 +153,15 @@ function App() {
             </p>
           </div>
 
-          <div className="last-check">
+                    <div className="last-check">
             <span className="status-dot"></span>
             <div>
-              <strong>System online</strong>
-              <small>Zuletzt geprüft: gerade eben</small>
+              <strong>{loadError ? "Keine Daten" : "System online"}</strong>
+              <small>
+                {loadError
+                  ? "events.json nicht gefunden"
+                  : `Zuletzt geprüft: ${formatLastChecked(data.lastChecked)}`}
+              </small>
             </div>
           </div>
         </section>
@@ -234,10 +269,14 @@ function App() {
             </select>
           </div>
 
-          <div className="event-list">
-            {filteredEvents.length === 0 ? (
+                    <div className="event-list">
+            {loading ? (
+              <div className="empty">Daten werden geladen …</div>
+            ) : filteredEvents.length === 0 ? (
               <div className="empty">
-                Keine Veranstaltungen gefunden.
+                {loadError
+                  ? "Konnte Veranstaltungen nicht laden."
+                  : "Keine Veranstaltungen gefunden."}
               </div>
             ) : (
               filteredEvents.map((event, index) => (
