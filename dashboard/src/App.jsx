@@ -280,7 +280,7 @@ function App() {
       </main>
 
       <footer>
-        <p>School Event Monitor · Chamisso-Grundschule Project</p>
+        <p>School Open Day in Reinickendorf · Schulmonitoring Berlin</p>
       </footer>
     </div>
   );

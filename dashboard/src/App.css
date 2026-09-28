@@ -9,6 +9,8 @@ body {
     sans-serif;
   background: #f5f7fb;
   color: #172033;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 button,
@@ -29,11 +31,17 @@ select {
 }
 
 .header {
-  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
   border-bottom: 1px solid #e8ebf0;
   position: sticky;
   top: 0;
   z-index: 10;
+}
+
+.dark .header {
+  background: rgba(24, 33, 49, 0.8);
 }
 
 .dark .header {
@@ -63,13 +71,17 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #eef2ff;
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+  color: white;
   font-size: 24px;
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
 }
 
 .brand h1 {
   margin: 0;
   font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
 }
 
 .brand p {
@@ -84,6 +96,20 @@ select {
   padding: 9px 14px;
   border-radius: 10px;
   cursor: pointer;
+  font-weight: 600;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.theme-button:hover {
+  border-color: #c7cbd3;
+  background: #f9fafb;
+}
+
+.theme-button:active {
+  transform: scale(0.97);
 }
 
 .dark .theme-button {
@@ -107,6 +133,28 @@ select {
   border-radius: 24px;
   background: linear-gradient(135deg, #eef2ff, #f8faff);
   margin-bottom: 24px;
+  border: 1px solid #e6eaff;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -60px;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.18),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.dark .hero {
+  border-color: #293548;
 }
 
 .dark .hero {
@@ -125,7 +173,10 @@ select {
   font-size: 40px;
   line-height: 1.12;
   margin: 0;
-  letter-spacing: -1px;
+  letter-spacing: -1.2px;
+  font-weight: 800;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-text {
@@ -188,6 +239,14 @@ select {
   display: flex;
   align-items: center;
   gap: 14px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(31, 41, 55, 0.09);
 }
 
 .dark .stat-card,
@@ -223,6 +282,8 @@ select {
   display: block;
   font-size: 25px;
   margin-top: 3px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
 .section {
