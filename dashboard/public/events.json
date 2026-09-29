@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-09-28T21:00:00",
+  "last_checked": "2026-09-29T11:02:11",
   "schools": [
     {
       "name": "Chamisso-Grundschule",
@@ -7,16 +7,18 @@
       "events": []
     },
     {
-      "name": "Campus Hannah H\u00f6ch",
+      "name": "Campus Hannah Höch",
       "status": "Online",
       "events": [
         {
-          "title": "Schulf\u00fchrungen und Informationsveranstaltungen",
+          "title": "Erkannte Veranstaltung",
           "date": "Noch nicht erkannt",
           "time": "",
-          "type": ["Schulf\u00fchrung", "Informationsveranstaltung"],
-          "url": "http://www.campus-hannah-hoech.de/",
-          "new": true
+          "type": [
+            "Schulführung",
+            "Informationsveranstaltung"
+          ],
+          "url": "http://www.campus-hannah-hoech.de/"
         }
       ]
     },
@@ -25,12 +27,13 @@
       "status": "Online",
       "events": [
         {
-          "title": "Tag der offenen T\u00fcr",
-          "date": "29.09.2026",
-          "time": "10:15-12:00",
-          "type": ["Tag der offenen T\u00fcr"],
-          "url": "https://www.bettina-schule.de/",
-          "new": true
+          "title": "Erkannte Veranstaltung",
+          "date": "Noch nicht erkannt",
+          "time": "",
+          "type": [
+            "Tag der offenen Tür"
+          ],
+          "url": "https://www.bettina-schule.de/"
         }
       ]
     },
@@ -44,12 +47,13 @@
       "status": "Online",
       "events": [
         {
-          "title": "Tag der offenen T\u00fcr f\u00fcr Erstkl\u00e4ssler 2027",
-          "date": "29.09.2026",
-          "time": "10:15-12:00",
-          "type": ["Tag der offenen T\u00fcr"],
-          "url": "https://www.peckwisch.de/",
-          "new": true
+          "title": "Erkannte Veranstaltung",
+          "date": "Noch nicht erkannt",
+          "time": "",
+          "type": [
+            "Tag der offenen Tür"
+          ],
+          "url": "https://www.peckwisch.de/"
         }
       ]
     }
